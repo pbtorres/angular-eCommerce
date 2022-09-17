@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { IProduct } from '../products';
 
@@ -14,7 +15,8 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private productsService:ProductsService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private notification:NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +24,10 @@ export class ProductDetailsComponent implements OnInit {
     const productId = Number(routParams.get("id"));
 
     this.product = this.productsService.getOne(productId);
+  }
+
+  addToCart() {
+    this.notification.notfy("Product added to cart");
   }
 
 }
