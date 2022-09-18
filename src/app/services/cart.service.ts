@@ -16,7 +16,13 @@ export class CartService {
   }
   
   getCart() {
-    return JSON.parse(localStorage.getItem("cart") || "");
+    this.items = JSON.parse(localStorage.getItem("cart") || "[]");
+    return this.items;
+  }
+
+  removeCartItem(productId: Number) {
+    this.items = this.items.filter(item => item.id!== productId);
+    localStorage.setItem("cart", JSON.stringify(this.items))
   }
 
   clearCart() {
